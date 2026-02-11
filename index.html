@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edhana AI — The World's Most Advanced Voice AI Agents</title>
+    <meta name="description" content="Edhana AI builds the world's most advanced Voice AI Agents. Actionable, multilingual, ultra-low latency — at 8x lower cost than the competition.">
+    
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://edhana.ai/">
+    <meta property="og:title" content="Edhana AI — Voice AI Agents That Actually Act">
+    <meta property="og:description" content="The world's most advanced Voice AI platform. Ultra-low latency, actionable agents that resolve issues — at 8× lower cost.">
+    <meta property="og:image" content="https://edhana.ai/og-image.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Edhana AI — Voice AI Agents That Actually Act">
+    <meta name="twitter:description" content="The world's most advanced Voice AI platform. Ultra-low latency, actionable agents that resolve issues — at 8× lower cost.">
+    <meta name="twitter:image" content="https://edhana.ai/og-image.png">
+    <meta name="theme-color" content="#7c3aed">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Google Analytics 4 — Replace G-XXXXXXXXXX with your Measurement ID -->
+    <!-- Get yours at: https://analytics.google.com → Admin → Data Streams → Web -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-XXXXXXXXXX');
+    </script>
+
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' stop-color='%237c3aed'/><stop offset='100%25' stop-color='%2306b6d4'/></linearGradient></defs><circle cx='50' cy='50' r='45' fill='url(%23g)'/><path d='M35 30 L35 70 M50 20 L50 80 M65 35 L65 65' stroke='white' stroke-width='6' stroke-linecap='round'/></svg>">
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-icon">
+                <svg width="48" height="48" viewBox="0 0 100 100">
+                    <defs>
+                        <linearGradient id="preloaderGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#7c3aed"/>
+                            <stop offset="100%" stop-color="#06b6d4"/>
+                        </linearGradient>
+                    </defs>
+                    <circle cx="50" cy="50" r="45" fill="url(#preloaderGrad)"/>
+                    <path d="M35 30 L35 70 M50 20 L50 80 M65 35 L65 65" stroke="white" stroke-width="6" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <div class="preloader-bars">
+                <span></span><span></span><span></span><span></span><span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cursor Glow -->
+    <div class="cursor-glow" id="cursor-glow"></div>
+
+    <!-- Particle Canvas Background -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo">
+                <div class="logo-icon">
+                    <svg width="32" height="32" viewBox="0 0 100 100">
+                        <defs>
+                            <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" stop-color="#7c3aed"/>
+                                <stop offset="100%" stop-color="#06b6d4"/>
+                            </linearGradient>
+                        </defs>
+                        <circle cx="50" cy="50" r="45" fill="url(#logoGrad)"/>
+                        <path d="M35 30 L35 70 M50 20 L50 80 M65 35 L65 65" stroke="white" stroke-width="6" stroke-linecap="round"/>
+                    </svg>
+                </div>
+                <span class="logo-text">edhana<span class="logo-dot">.ai</span></span>
+            </a>
+            <div class="nav-links" id="nav-links">
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#technology" class="nav-link">Technology</a>
+                <a href="#case-studies" class="nav-link">Case Studies</a>
+                <a href="#global" class="nav-link">Global</a>
+                <a href="#contact" class="nav-link nav-link-cta">Get Started</a>
+            </div>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="hero">
+        <div class="hero-glow"></div>
+        <div class="hero-content">
+            <div class="hero-badge reveal-up">
+                <span class="badge-dot"></span>
+                Now powering enterprise voice at scale
+            </div>
+            <h1 class="hero-title reveal-up">
+                Voice AI Agents<br>
+                <span class="gradient-text">That Actually Act.</span>
+            </h1>
+            <p class="hero-subtitle reveal-up">
+                The world's most advanced Voice AI platform. Ultra-low latency, 
+                actionable agents that resolve issues — not just talk about them. 
+                At <strong>8× lower cost</strong> than the competition.
+            </p>
+            <div class="hero-cta reveal-up">
+                <a href="#contact" class="btn btn-primary">
+                    <span>Start Building</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+                <a href="#case-studies" class="btn btn-secondary">
+                    <span>View Case Studies</span>
+                </a>
+            </div>
+            <!-- Voice Waveform Visualization -->
+            <div class="hero-waveform reveal-up">
+                <canvas id="waveform-canvas"></canvas>
+                <div class="waveform-label">
+                    <div class="waveform-pulse"></div>
+                    <span>Live Agent Waveform</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Bar -->
+    <section class="stats-bar">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item reveal-up">
+                    <div class="stat-number" data-target="8" data-suffix="×">0×</div>
+                    <div class="stat-label">Lower Cost</div>
+                    <div class="stat-desc">Than market price</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item reveal-up" data-delay="100">
+                    <div class="stat-number" data-target="50" data-suffix="+">0+</div>
+                    <div class="stat-label">Languages</div>
+                    <div class="stat-desc">Global support</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item reveal-up" data-delay="200">
+                    <div class="stat-number" data-target="200" data-suffix="ms">0ms</div>
+                    <div class="stat-label">Latency</div>
+                    <div class="stat-desc">Response time</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item reveal-up" data-delay="300">
+                    <div class="stat-number" data-target="99.7" data-suffix="%" data-decimal="true">0%</div>
+                    <div class="stat-label">Resolution Rate</div>
+                    <div class="stat-desc">First-call resolve</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header reveal-up">
+                <span class="section-tag">Capabilities</span>
+                <h2 class="section-title">Why Edhana Agents<br><span class="gradient-text">Outperform Everything Else</span></h2>
+                <p class="section-desc">Built from the ground up with proprietary in-house components. Every layer is optimized for voice.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card reveal-up" data-delay="0">
+                    <div class="feature-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                    </div>
+                    <h3 class="feature-title">Ultra-Low Latency</h3>
+                    <p class="feature-desc">Sub-200ms response times powered by our custom inference stack. Conversations feel natural, not robotic.</p>
+                    <div class="feature-visual latency-visual">
+                        <div class="latency-bar">
+                            <div class="latency-fill edhana-bar" style="width: 15%">
+                                <span>Edhana</span>
+                            </div>
+                        </div>
+                        <div class="latency-bar">
+                            <div class="latency-fill competitor-bar" style="width: 85%">
+                                <span>Others</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-card reveal-up" data-delay="100">
+                    <div class="feature-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                    </div>
+                    <h3 class="feature-title">Truly Actionable</h3>
+                    <p class="feature-desc">Our agents don't just respond — they act. Schedule appointments, trigger workflows, process returns, and resolve issues autonomously.</p>
+                    <div class="feature-visual action-visual">
+                        <div class="action-flow">
+                            <div class="action-node">Listen</div>
+                            <svg class="action-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            <div class="action-node">Understand</div>
+                            <svg class="action-arrow" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            <div class="action-node active">Act</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-card reveal-up" data-delay="200">
+                    <div class="feature-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+                    </div>
+                    <h3 class="feature-title">Enterprise-Grade Quality</h3>
+                    <p class="feature-desc">Proprietary evaluation framework with continuous monitoring ensures every interaction meets the highest quality bar, consistently.</p>
+                    <div class="feature-visual quality-visual">
+                        <div class="quality-meter">
+                            <div class="quality-ring">
+                                <svg viewBox="0 0 100 100">
+                                    <circle cx="50" cy="50" r="40" fill="none" stroke="rgba(124,58,237,0.15)" stroke-width="8"/>
+                                    <circle cx="50" cy="50" r="40" fill="none" stroke="url(#qualityGrad)" stroke-width="8" stroke-dasharray="251.2" stroke-dashoffset="7.5" stroke-linecap="round" transform="rotate(-90 50 50)" class="quality-arc"/>
+                                    <defs>
+                                        <linearGradient id="qualityGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                            <stop offset="0%" stop-color="#7c3aed"/>
+                                            <stop offset="100%" stop-color="#06b6d4"/>
+                                        </linearGradient>
+                                    </defs>
+                                </svg>
+                                <span class="quality-value">97%</span>
+                            </div>
+                            <span class="quality-label">Quality Score</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-card reveal-up" data-delay="300">
+                    <div class="feature-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                    </div>
+                    <h3 class="feature-title">50+ Languages</h3>
+                    <p class="feature-desc">Native multilingual support across all major regions. Not translated — truly localized with cultural context and dialect awareness.</p>
+                    <div class="feature-visual lang-visual">
+                        <div class="lang-bubbles">
+                            <span class="lang-bubble" style="--delay: 0s">EN</span>
+                            <span class="lang-bubble" style="--delay: 0.1s">ES</span>
+                            <span class="lang-bubble" style="--delay: 0.2s">FR</span>
+                            <span class="lang-bubble" style="--delay: 0.3s">DE</span>
+                            <span class="lang-bubble" style="--delay: 0.4s">日本</span>
+                            <span class="lang-bubble" style="--delay: 0.5s">中文</span>
+                            <span class="lang-bubble" style="--delay: 0.6s">हि</span>
+                            <span class="lang-bubble" style="--delay: 0.7s">عر</span>
+                            <span class="lang-bubble" style="--delay: 0.8s">PT</span>
+                            <span class="lang-bubble" style="--delay: 0.9s">+41</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="feature-card feature-card-wide reveal-up" data-delay="100">
+                    <div class="feature-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    </div>
+                    <div class="feature-wide-content">
+                        <div>
+                            <h3 class="feature-title">8× More Affordable</h3>
+                            <p class="feature-desc">Our fully in-house stack — from speech recognition to action execution — eliminates third-party dependencies. The result: enterprise-grade Voice AI at a fraction of the cost.</p>
+                        </div>
+                        <div class="pricing-comparison">
+                            <div class="price-col competitor">
+                                <span class="price-label">Industry Average</span>
+                                <div class="price-bars">
+                                    <div class="price-bar" style="height: 100%"></div>
+                                </div>
+                                <span class="price-amount">$0.40<small>/min</small></span>
+                            </div>
+                            <div class="price-col edhana">
+                                <span class="price-label">Edhana AI</span>
+                                <div class="price-bars">
+                                    <div class="price-bar" style="height: 12.5%"></div>
+                                </div>
+                                <span class="price-amount">$0.05<small>/min</small></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section class="technology" id="technology">
+        <div class="container">
+            <div class="section-header reveal-up">
+                <span class="section-tag">Technology</span>
+                <h2 class="section-title">Built Different.<br><span class="gradient-text">Engineered for Perfection.</span></h2>
+                <p class="section-desc">Every component in the Edhana stack is purpose-built for voice. No stitched-together APIs. No compromises.</p>
+            </div>
+            <div class="tech-stack reveal-up">
+                <div class="tech-layer">
+                    <div class="tech-layer-label">Action Layer</div>
+                    <div class="tech-layer-bar">
+                        <div class="tech-node">API Orchestration</div>
+                        <div class="tech-node">Workflow Engine</div>
+                        <div class="tech-node">Tool Execution</div>
+                        <div class="tech-node">MCP Integration</div>
+                    </div>
+                </div>
+                <div class="tech-connector">
+                    <svg width="2" height="40"><line x1="1" y1="0" x2="1" y2="40" stroke="url(#connGrad)" stroke-width="2" stroke-dasharray="4 4"/></svg>
+                </div>
+                <div class="tech-layer">
+                    <div class="tech-layer-label">Intelligence Layer</div>
+                    <div class="tech-layer-bar">
+                        <div class="tech-node">Context Engine</div>
+                        <div class="tech-node">RAG Pipeline</div>
+                        <div class="tech-node">Intent Resolution</div>
+                        <div class="tech-node">Eval Framework</div>
+                    </div>
+                </div>
+                <div class="tech-connector">
+                    <svg width="2" height="40"><line x1="1" y1="0" x2="1" y2="40" stroke="url(#connGrad)" stroke-width="2" stroke-dasharray="4 4"/></svg>
+                </div>
+                <div class="tech-layer">
+                    <div class="tech-layer-label">Voice Layer</div>
+                    <div class="tech-layer-bar">
+                        <div class="tech-node">ASR Engine</div>
+                        <div class="tech-node">NLU Pipeline</div>
+                        <div class="tech-node">TTS Synthesis</div>
+                        <div class="tech-node">Emotion Detection</div>
+                    </div>
+                </div>
+                <div class="tech-connector">
+                    <svg width="2" height="40"><line x1="1" y1="0" x2="1" y2="40" stroke="url(#connGrad)" stroke-width="2" stroke-dasharray="4 4"/></svg>
+                </div>
+                <div class="tech-layer">
+                    <div class="tech-layer-label">Infrastructure Layer</div>
+                    <div class="tech-layer-bar">
+                        <div class="tech-node">Edge Compute</div>
+                        <div class="tech-node">Global CDN</div>
+                        <div class="tech-node">Auto-Scaling</div>
+                        <div class="tech-node">Monitoring</div>
+                    </div>
+                </div>
+                <svg width="0" height="0">
+                    <defs>
+                        <linearGradient id="connGrad" x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="0%" stop-color="#7c3aed"/>
+                            <stop offset="100%" stop-color="#06b6d4"/>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+            <div class="eval-section reveal-up">
+                <div class="eval-content">
+                    <div class="eval-icon">
+                        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="url(#evalGrad)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                            <defs>
+                                <linearGradient id="evalGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#7c3aed"/>
+                                    <stop offset="100%" stop-color="#06b6d4"/>
+                                </linearGradient>
+                            </defs>
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                            <polyline points="22 4 12 14.01 9 11.01"/>
+                        </svg>
+                    </div>
+                    <h3>Continuous Evaluation Engine</h3>
+                    <p>Our proprietary eval models and framework run in real-time, scoring every interaction across accuracy, tone, resolution quality, and compliance. Issues are caught and corrected before they reach your customers.</p>
+                </div>
+                <div class="eval-metrics">
+                    <div class="eval-metric">
+                        <div class="eval-metric-bar">
+                            <div class="eval-metric-fill" style="--width: 97%"></div>
+                        </div>
+                        <div class="eval-metric-info">
+                            <span>Accuracy</span><span>97.3%</span>
+                        </div>
+                    </div>
+                    <div class="eval-metric">
+                        <div class="eval-metric-bar">
+                            <div class="eval-metric-fill" style="--width: 95%"></div>
+                        </div>
+                        <div class="eval-metric-info">
+                            <span>Tone & Empathy</span><span>95.1%</span>
+                        </div>
+                    </div>
+                    <div class="eval-metric">
+                        <div class="eval-metric-bar">
+                            <div class="eval-metric-fill" style="--width: 98%"></div>
+                        </div>
+                        <div class="eval-metric-info">
+                            <span>Resolution Quality</span><span>98.2%</span>
+                        </div>
+                    </div>
+                    <div class="eval-metric">
+                        <div class="eval-metric-bar">
+                            <div class="eval-metric-fill" style="--width: 100%"></div>
+                        </div>
+                        <div class="eval-metric-info">
+                            <span>Compliance</span><span>100%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Case Studies Section -->
+    <section class="case-studies" id="case-studies">
+        <div class="container">
+            <div class="section-header reveal-up">
+                <span class="section-tag">Case Studies</span>
+                <h2 class="section-title">Real Results.<br><span class="gradient-text">Real Businesses.</span></h2>
+                <p class="section-desc">See how leading enterprises use Edhana Voice AI to transform customer experience.</p>
+            </div>
+            
+            <!-- Case Study 1: Best Buy -->
+            <div class="case-study-card reveal-up">
+                <div class="case-study-header">
+                    <div class="case-study-badge">E-Commerce</div>
+                    <div class="case-study-company">
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                        <div>
+                            <h3>Best Buy</h3>
+                            <span>Leading US Electronics Retailer</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="case-study-body">
+                    <div class="case-study-content">
+                        <h4>The Challenge</h4>
+                        <p>Best Buy needed an intelligent support system that could handle millions of customer equipment issues — diagnosing whether problems were software or hardware, and taking immediate action.</p>
+                        
+                        <h4>The Edhana Solution</h4>
+                        <div class="solution-flow">
+                            <div class="solution-step">
+                                <div class="step-number">01</div>
+                                <div class="step-content">
+                                    <strong>Intelligent Diagnosis</strong>
+                                    <p>Voice Agent identifies the issue through natural conversation, cross-referencing product manuals via RAG and web knowledge.</p>
+                                </div>
+                            </div>
+                            <div class="solution-step">
+                                <div class="step-number">02</div>
+                                <div class="step-content">
+                                    <strong>Software Issues → Remote Resolution</strong>
+                                    <p>For software problems, the agent provides real-time guided troubleshooting through virtual remote support sessions.</p>
+                                </div>
+                            </div>
+                            <div class="solution-step">
+                                <div class="step-number">03</div>
+                                <div class="step-content">
+                                    <strong>Hardware Issues → Scheduled Service</strong>
+                                    <p>For hardware damage, the agent automatically schedules in-store Geek Squad visits or at-home repair appointments.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="case-study-results">
+                        <h4>Results</h4>
+                        <div class="result-metrics">
+                            <div class="result-metric">
+                                <span class="result-value">73%</span>
+                                <span class="result-label">Reduction in wait times</span>
+                            </div>
+                            <div class="result-metric">
+                                <span class="result-value">4.8/5</span>
+                                <span class="result-label">Customer satisfaction</span>
+                            </div>
+                            <div class="result-metric">
+                                <span class="result-value">62%</span>
+                                <span class="result-label">First-call resolution</span>
+                            </div>
+                            <div class="result-metric">
+                                <span class="result-value">$2.4M</span>
+                                <span class="result-label">Annual savings</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Case Study 2: Healthcare -->
+            <div class="case-study-card reveal-up">
+                <div class="case-study-header">
+                    <div class="case-study-badge healthcare-badge">Healthcare</div>
+                    <div class="case-study-company">
+                        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                        <div>
+                            <h3>Healthcare Supplements Platform</h3>
+                            <span>Leading Supplement E-Commerce Provider</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="case-study-body">
+                    <div class="case-study-content">
+                        <h4>The Challenge</h4>
+                        <p>A major healthcare supplements platform needed intelligent product recommendations that consider individual health conditions, backed by medical research — not generic suggestions.</p>
+                        
+                        <h4>The Edhana Solution</h4>
+                        <div class="solution-flow">
+                            <div class="solution-step">
+                                <div class="step-number">01</div>
+                                <div class="step-content">
+                                    <strong>Health Assessment via Voice</strong>
+                                    <p>Our Voice Agent conducts an empathetic, thorough assessment of the user's health concerns through natural conversation.</p>
+                                </div>
+                            </div>
+                            <div class="solution-step">
+                                <div class="step-number">02</div>
+                                <div class="step-content">
+                                    <strong>PubMed Research Integration</strong>
+                                    <p>Real-time queries to PubMed MCP server provide evidence-based supplement recommendations grounded in peer-reviewed research.</p>
+                                </div>
+                            </div>
+                            <div class="solution-step">
+                                <div class="step-number">03</div>
+                                <div class="step-content">
+                                    <strong>Personalized Recommendations</strong>
+                                    <p>Cross-referencing research with product catalogs, the agent suggests optimal supplements tailored to each user's specific condition.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="case-study-results">
+                        <h4>Results</h4>
+                        <div class="result-metrics">
+                            <div class="result-metric">
+                                <span class="result-value">89%</span>
+                                <span class="result-label">Recommendation accuracy</span>
+                            </div>
+                            <div class="result-metric">
+                                <span class="result-value">3.2×</span>
+                                <span class="result-label">Conversion increase</span>
+                            </div>
+                            <div class="result-metric">
+                                <span class="result-value">91%</span>
+                                <span class="result-label">User trust score</span>
+                            </div>
+                            <div class="result-metric">
+                                <span class="result-value">45%</span>
+                                <span class="result-label">Repeat purchase rate</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Global Section -->
+    <section class="global" id="global">
+        <div class="container">
+            <div class="global-content">
+                <div class="global-text reveal-up">
+                    <span class="section-tag">Global Reach</span>
+                    <h2 class="section-title">One Platform.<br><span class="gradient-text">Every Language.</span></h2>
+                    <p class="section-desc">Deploy Voice AI Agents that speak your customers' language — literally. With native multilingual support across 50+ languages, Edhana agents understand regional dialects, cultural nuances, and local idioms.</p>
+                    <div class="global-features">
+                        <div class="global-feature">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>Native accent & dialect support</span>
+                        </div>
+                        <div class="global-feature">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>Real-time language detection</span>
+                        </div>
+                        <div class="global-feature">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>Cultural context awareness</span>
+                        </div>
+                        <div class="global-feature">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            <span>Seamless mid-conversation language switching</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="global-visual reveal-up">
+                    <div class="globe-container">
+                        <canvas id="globe-canvas"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Demo Teaser -->
+    <section class="demo-section">
+        <div class="container">
+            <div class="demo-card reveal-up">
+                <div class="demo-content">
+                    <h2>Experience the <span class="gradient-text">Future of Voice AI</span></h2>
+                    <p>See how Edhana agents handle real conversations — from complex troubleshooting to nuanced health recommendations — with near-human fluency.</p>
+                    <a href="#contact" class="btn btn-primary">
+                        <span>Request a Demo</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+                <div class="demo-visual">
+                    <div class="demo-phone">
+                        <div class="demo-phone-screen">
+                            <div class="demo-chat">
+                                <div class="demo-msg agent">
+                                    <span class="msg-sender">Edhana Agent</span>
+                                    <p>Hi! I can see you recently purchased a Samsung TV. What seems to be the issue?</p>
+                                </div>
+                                <div class="demo-msg user">
+                                    <p>The screen keeps flickering when I switch to HDMI 2.</p>
+                                </div>
+                                <div class="demo-msg agent">
+                                    <span class="msg-sender">Edhana Agent</span>
+                                    <p>I understand. Let me run a quick diagnostic. This is typically a firmware issue. I'll push an update to your TV now — it'll take about 2 minutes. Shall I proceed?</p>
+                                </div>
+                                <div class="demo-msg user">
+                                    <p>Yes please!</p>
+                                </div>
+                                <div class="demo-msg agent">
+                                    <span class="msg-sender">Edhana Agent</span>
+                                    <p>Done! Firmware v3.2.1 has been installed. The flickering should be resolved. Is there anything else I can help with?</p>
+                                    <span class="msg-action">✓ Firmware updated remotely</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section" id="contact">
+        <div class="container">
+            <div class="cta-card reveal-up">
+                <div class="cta-glow"></div>
+                <h2>Ready to Deploy<br><span class="gradient-text">Voice AI That Acts?</span></h2>
+                <p>Join the companies transforming their customer experience with Edhana. Get started in days, not months.</p>
+                <form class="cta-form" id="contact-form">
+                    <div class="form-row">
+                        <input type="text" name="name" placeholder="Your Name" required class="form-input">
+                        <input type="email" name="email" placeholder="Work Email" required class="form-input">
+                    </div>
+                    <div class="form-row">
+                        <input type="text" name="company" placeholder="Company Name" class="form-input">
+                        <select name="industry" class="form-input">
+                            <option value="" disabled selected>Industry</option>
+                            <option value="ecommerce">E-Commerce</option>
+                            <option value="healthcare">Healthcare</option>
+                            <option value="finance">Finance</option>
+                            <option value="saas">SaaS</option>
+                            <option value="telecom">Telecom</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <textarea name="message" placeholder="Tell us about your use case..." class="form-input form-textarea"></textarea>
+                    <button type="submit" class="btn btn-primary btn-full">
+                        <span>Get Started</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="#" class="nav-logo">
+                        <div class="logo-icon">
+                            <svg width="28" height="28" viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="45" fill="url(#logoGrad)"/>
+                                <path d="M35 30 L35 70 M50 20 L50 80 M65 35 L65 65" stroke="white" stroke-width="6" stroke-linecap="round"/>
+                            </svg>
+                        </div>
+                        <span class="logo-text">edhana<span class="logo-dot">.ai</span></span>
+                    </a>
+                    <p>Building the world's most advanced Voice AI Agents. Actionable, multilingual, and 8× more affordable.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Product</h4>
+                    <a href="#features">Features</a>
+                    <a href="#technology">Technology</a>
+                    <a href="#case-studies">Case Studies</a>
+                    <a href="#">Pricing</a>
+                    <a href="#">Documentation</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <a href="#">About</a>
+                    <a href="#">Careers</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Press</a>
+                    <a href="#">Contact</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Security</a>
+                    <a href="#">Compliance</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Edhana AI. All rights reserved.</p>
+                <div class="footer-socials">
+                    <a href="#" aria-label="Twitter">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                    </a>
+                    <a href="#" aria-label="LinkedIn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    </a>
+                    <a href="#" aria-label="GitHub">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
