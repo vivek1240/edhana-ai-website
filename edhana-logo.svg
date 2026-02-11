@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7c3aed"/>
+      <stop offset="100%" stop-color="#06b6d4"/>
+    </linearGradient>
+  </defs>
+  <!-- Background circle -->
+  <circle cx="200" cy="200" r="190" fill="url(#bgGrad)"/>
+  <!-- Voice waveform bars -->
+  <rect x="120" y="110" width="22" height="180" rx="11" fill="white"/>
+  <rect x="165" y="70" width="22" height="260" rx="11" fill="white"/>
+  <rect x="210" y="130" width="22" height="140" rx="11" fill="white"/>
+  <rect x="255" y="90" width="22" height="220" rx="11" fill="white"/>
+</svg>

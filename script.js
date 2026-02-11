@@ -191,62 +191,206 @@ function initParticles() {
 }
 
 /* ============================================
-   Voice Waveform Visualization
+   Interactive Audio Demo Player
    ============================================ */
 
 function initWaveform() {
     const canvas = document.getElementById('waveform-canvas');
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
-    
+    const audio = document.getElementById('demo-audio');
+    const playBtn = document.getElementById('play-btn');
+    const playIcon = playBtn?.querySelector('.play-icon');
+    const pauseIcon = playBtn?.querySelector('.pause-icon');
+    const progressFill = document.getElementById('progress-fill');
+    const progressHandle = document.getElementById('progress-handle');
+    const progressWrap = document.getElementById('progress-wrap');
+    const durationEl = document.getElementById('player-duration');
+    const volumeBtn = document.getElementById('volume-btn');
+    const transcriptLines = document.querySelectorAll('.transcript-line');
+
+    let isPlaying = false;
+    let audioContext = null;
+    let analyser = null;
+    let dataArray = null;
+    let source = null;
+    let audioReady = false;
+    let time = 0;
+
     function resize() {
         const rect = canvas.parentElement.getBoundingClientRect();
         canvas.width = rect.width * 2;
-        canvas.height = 240;
+        canvas.height = 200;
         canvas.style.width = rect.width + 'px';
-        canvas.style.height = '120px';
+        canvas.style.height = '100px';
     }
-    
+
     resize();
     window.addEventListener('resize', resize);
 
-    let time = 0;
+    // Setup Web Audio API for real-time visualization
+    function setupAudioContext() {
+        if (audioContext) return;
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        analyser = audioContext.createAnalyser();
+        analyser.fftSize = 256;
+        analyser.smoothingTimeConstant = 0.8;
+        source = audioContext.createMediaElementSource(audio);
+        source.connect(analyser);
+        analyser.connect(audioContext.destination);
+        dataArray = new Uint8Array(analyser.frequencyBinCount);
+        audioReady = true;
+    }
 
+    // Format seconds to M:SS
+    function formatTime(s) {
+        if (isNaN(s)) return '0:00';
+        const m = Math.floor(s / 60);
+        const sec = Math.floor(s % 60);
+        return `${m}:${sec.toString().padStart(2, '0')}`;
+    }
+
+    // Play / Pause toggle
+    if (playBtn && audio) {
+        playBtn.addEventListener('click', () => {
+            try { setupAudioContext(); } catch(e) {}
+            if (audioContext && audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
+
+            if (isPlaying) {
+                audio.pause();
+            } else {
+                audio.play().catch(() => {
+                    // Audio file not found — still show animated waveform
+                });
+            }
+        });
+
+        audio.addEventListener('play', () => {
+            isPlaying = true;
+            playIcon.style.display = 'none';
+            pauseIcon.style.display = 'block';
+        });
+
+        audio.addEventListener('pause', () => {
+            isPlaying = false;
+            playIcon.style.display = 'block';
+            pauseIcon.style.display = 'none';
+        });
+
+        audio.addEventListener('ended', () => {
+            isPlaying = false;
+            playIcon.style.display = 'block';
+            pauseIcon.style.display = 'none';
+        });
+
+        // Progress bar update
+        audio.addEventListener('timeupdate', () => {
+            if (!audio.duration) return;
+            const pct = (audio.currentTime / audio.duration) * 100;
+            progressFill.style.width = pct + '%';
+            progressHandle.style.left = pct + '%';
+            durationEl.textContent = `${formatTime(audio.currentTime)} / ${formatTime(audio.duration)}`;
+            updateTranscript(audio.currentTime);
+        });
+
+        audio.addEventListener('loadedmetadata', () => {
+            durationEl.textContent = `0:00 / ${formatTime(audio.duration)}`;
+        });
+
+        // Click to seek
+        if (progressWrap) {
+            progressWrap.addEventListener('click', (e) => {
+                const rect = progressWrap.getBoundingClientRect();
+                const pct = (e.clientX - rect.left) / rect.width;
+                if (audio.duration) {
+                    audio.currentTime = pct * audio.duration;
+                }
+            });
+        }
+
+        // Volume toggle
+        if (volumeBtn) {
+            volumeBtn.addEventListener('click', () => {
+                audio.muted = !audio.muted;
+                volumeBtn.classList.toggle('muted', audio.muted);
+            });
+        }
+    }
+
+    // Highlight transcript lines based on time
+    function updateTranscript(currentTime) {
+        transcriptLines.forEach(line => {
+            const start = parseFloat(line.dataset.start);
+            const end = parseFloat(line.dataset.end);
+            if (currentTime >= start && currentTime < end) {
+                line.classList.add('active');
+                // Auto-scroll to active line
+                line.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            } else {
+                line.classList.remove('active');
+            }
+        });
+    }
+
+    // Waveform visualization
     function drawWaveform() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        
+
         const centerY = canvas.height / 2;
         const barWidth = 3;
         const gap = 4;
         const totalBars = Math.floor(canvas.width / (barWidth + gap));
 
+        // Get frequency data if audio is playing
+        let freqData = null;
+        if (audioReady && isPlaying && analyser) {
+            analyser.getByteFrequencyData(dataArray);
+            freqData = dataArray;
+        }
+
         for (let i = 0; i < totalBars; i++) {
             const x = i * (barWidth + gap);
-            
-            // Multiple overlapping sine waves for organic look
-            const wave1 = Math.sin(i * 0.08 + time * 2) * 0.5;
-            const wave2 = Math.sin(i * 0.12 + time * 1.5 + 1) * 0.3;
-            const wave3 = Math.sin(i * 0.04 + time * 3 + 2) * 0.2;
-            const wave4 = Math.sin(i * 0.2 + time * 0.8) * 0.15;
-            
-            const combined = (wave1 + wave2 + wave3 + wave4);
-            const height = Math.abs(combined) * 80 + 4;
-            
+            let height;
+
+            if (freqData && isPlaying) {
+                // Map bar index to frequency data
+                const freqIndex = Math.floor((i / totalBars) * freqData.length);
+                const freqValue = freqData[freqIndex] / 255;
+                // Mix frequency data with ambient animation
+                const ambient = Math.sin(i * 0.08 + time * 2) * 0.15;
+                height = (freqValue * 0.85 + ambient + 0.05) * canvas.height * 0.45;
+                height = Math.max(height, 3);
+            } else {
+                // Idle animation — gentle breathing waveform
+                const wave1 = Math.sin(i * 0.08 + time * 1.2) * 0.35;
+                const wave2 = Math.sin(i * 0.12 + time * 0.8 + 1) * 0.2;
+                const wave3 = Math.sin(i * 0.04 + time * 1.8 + 2) * 0.15;
+                const combined = wave1 + wave2 + wave3;
+                height = Math.abs(combined) * 60 + 3;
+            }
+
             // Gradient color based on position
             const progress = i / totalBars;
             const r = Math.round(124 + (6 - 124) * progress);
             const g = Math.round(58 + (182 - 58) * progress);
             const b = Math.round(237 + (212 - 237) * progress);
-            const alpha = 0.6 + Math.abs(combined) * 0.4;
-            
+            const alpha = isPlaying ? 0.7 + (height / canvas.height) * 0.3 : 0.4 + Math.abs(Math.sin(i * 0.1 + time)) * 0.25;
+
             ctx.fillStyle = `rgba(${r}, ${g}, ${b}, ${alpha})`;
             ctx.beginPath();
             ctx.roundRect(x, centerY - height / 2, barWidth, height, 2);
             ctx.fill();
         }
-        
-        time += 0.015;
+
+        time += isPlaying ? 0.03 : 0.012;
         requestAnimationFrame(drawWaveform);
+    }
+
+    // Activate first transcript line by default
+    if (transcriptLines.length > 0) {
+        transcriptLines[0].classList.add('active');
     }
 
     drawWaveform();
