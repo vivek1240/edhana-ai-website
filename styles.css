@@ -96,6 +96,10 @@
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 :root {
     --bg-primary: #06060a;
     --bg-secondary: #0c0c14;
@@ -925,6 +929,57 @@ a {
     font-size: 1.05rem;
     color: var(--text-secondary);
     line-height: 1.7;
+}
+
+/* ============================================
+   Trusted By Section
+   ============================================ */
+
+.trusted-by {
+    position: relative;
+    z-index: 2;
+    padding: 40px 0 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.trusted-label {
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    margin-bottom: 28px;
+}
+
+.trusted-logos {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    flex-wrap: wrap;
+    opacity: 0.6;
+    transition: opacity 0.4s ease;
+}
+
+.trusted-logos:hover {
+    opacity: 0.85;
+}
+
+.trusted-logo {
+    transition: var(--transition);
+    filter: grayscale(0.5);
+}
+
+.trusted-logo:hover {
+    filter: grayscale(0);
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .trusted-logos {
+        gap: 28px;
+    }
 }
 
 /* ============================================

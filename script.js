@@ -285,12 +285,66 @@ function initWaveform() {
             });
         }
 
+        // ─── Animated Favicon ──────────────────────────────────
+        const faviconLink = document.querySelector('link[rel="icon"]');
+        const originalFavicon = faviconLink ? faviconLink.href : '';
+        let faviconAnimFrame = null;
+
+        function animateFavicon() {
+            const size = 32;
+            const fc = document.createElement('canvas');
+            fc.width = size;
+            fc.height = size;
+            const fctx = fc.getContext('2d');
+            const t = Date.now() / 600;
+
+            // Gradient background circle
+            const grad = fctx.createLinearGradient(0, 0, size, size);
+            grad.addColorStop(0, '#7c3aed');
+            grad.addColorStop(1, '#06b6d4');
+            fctx.beginPath();
+            fctx.arc(size / 2, size / 2, size / 2 - 1, 0, Math.PI * 2);
+            fctx.fillStyle = grad;
+            fctx.fill();
+
+            // Animated voice bars
+            const barWidth = 3;
+            const barGap = 5;
+            const bars = 3;
+            const startX = (size - (bars * barWidth + (bars - 1) * barGap)) / 2;
+            fctx.fillStyle = 'white';
+            for (let i = 0; i < bars; i++) {
+                const h = 6 + Math.sin(t + i * 1.2) * 5;
+                const x = startX + i * (barWidth + barGap);
+                const y = (size - h) / 2;
+                fctx.beginPath();
+                fctx.roundRect(x, y, barWidth, h, 1.5);
+                fctx.fill();
+            }
+
+            if (faviconLink) {
+                faviconLink.href = fc.toDataURL('image/png');
+            }
+            faviconAnimFrame = requestAnimationFrame(animateFavicon);
+        }
+
+        function stopFaviconAnim() {
+            if (faviconAnimFrame) {
+                cancelAnimationFrame(faviconAnimFrame);
+                faviconAnimFrame = null;
+            }
+            if (faviconLink) {
+                faviconLink.href = originalFavicon;
+            }
+        }
+
         audio.addEventListener('play', () => {
             isPlaying = true;
             playIcon.style.display = 'none';
             pauseIcon.style.display = 'block';
             if (overlay) overlay.classList.add('hidden');
             if (playerEl) playerEl.classList.add('playing');
+            animateFavicon();
         });
 
         audio.addEventListener('pause', () => {
@@ -298,6 +352,7 @@ function initWaveform() {
             playIcon.style.display = 'block';
             pauseIcon.style.display = 'none';
             if (playerEl) playerEl.classList.remove('playing');
+            stopFaviconAnim();
         });
 
         audio.addEventListener('ended', () => {
@@ -306,6 +361,7 @@ function initWaveform() {
             pauseIcon.style.display = 'none';
             if (overlay) overlay.classList.remove('hidden');
             if (playerEl) playerEl.classList.remove('playing');
+            stopFaviconAnim();
         });
 
         // Progress bar update
@@ -775,13 +831,8 @@ function initContactForm() {
     const form = document.getElementById('contact-form');
     if (!form) return;
 
-    // ─── SETUP ───────────────────────────────────────────────
-    // Replace YOUR_FORM_ID with your Formspree form ID.
-    // 1. Go to https://formspree.io and sign up (free tier: 50 submissions/month)
-    // 2. Create a new form → copy the form ID (e.g. "xpwzgknd")
-    // 3. Paste it below
-    const FORMSPREE_ID = 'YOUR_FORM_ID';
-    const FORMSPREE_URL = `https://formspree.io/f/${FORMSPREE_ID}`;
+    // ─── Google Sheets Integration ─────────────────────────────
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxJMCDAakjgXq31VBB40BCRekcF30bOUn4DPzvyM84nxXZuVoxTwv-eeajrwmIXJwOxtw/exec';
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -800,19 +851,20 @@ function initContactForm() {
 
         try {
             const formData = new FormData(form);
+            const payload = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                company: formData.get('company'),
+                industry: formData.get('industry'),
+                message: formData.get('message')
+            };
 
-            // If Formspree is configured, send for real
-            if (FORMSPREE_ID !== 'YOUR_FORM_ID') {
-                const res = await fetch(FORMSPREE_URL, {
-                    method: 'POST',
-                    body: formData,
-                    headers: { 'Accept': 'application/json' },
-                });
-                if (!res.ok) throw new Error('Submission failed');
-            } else {
-                // Demo mode — simulate a short delay
-                await new Promise(r => setTimeout(r, 1200));
-            }
+            await fetch(GOOGLE_SCRIPT_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload),
+            });
 
             btn.innerHTML = `
                 <span>Thank you! We'll be in touch.</span>
