@@ -462,8 +462,97 @@ a {
     transition: var(--transition);
 }
 
+.hero-demo-player::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: var(--radius-lg);
+    padding: 1px;
+    background: linear-gradient(135deg, rgba(124,58,237,0.3), rgba(6,182,212,0.1), rgba(124,58,237,0.3));
+    background-size: 200% 200%;
+    animation: border-glow 4s ease-in-out infinite;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.hero-demo-player.playing::before {
+    background: linear-gradient(135deg, rgba(124,58,237,0.6), rgba(6,182,212,0.4), rgba(124,58,237,0.6));
+    background-size: 200% 200%;
+    animation: border-glow 2s ease-in-out infinite;
+}
+
+@keyframes border-glow {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
 .hero-demo-player:hover {
     border-color: var(--border-hover);
+}
+
+/* Waveform wrapper & overlay */
+.waveform-wrapper {
+    position: relative;
+    cursor: pointer;
+}
+
+.waveform-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    background: rgba(6, 6, 10, 0.5);
+    backdrop-filter: blur(2px);
+    z-index: 2;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+    cursor: pointer;
+}
+
+.waveform-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.overlay-play-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 4px 24px rgba(124, 58, 237, 0.4);
+    transition: var(--transition);
+    animation: overlay-pulse 2s ease-in-out infinite;
+}
+
+.overlay-play-btn svg {
+    margin-left: 3px;
+}
+
+@keyframes overlay-pulse {
+    0%, 100% { box-shadow: 0 4px 24px rgba(124, 58, 237, 0.4); transform: scale(1); }
+    50% { box-shadow: 0 6px 36px rgba(124, 58, 237, 0.6); transform: scale(1.05); }
+}
+
+.waveform-overlay span {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: 0.01em;
+}
+
+.waveform-overlay:hover .overlay-play-btn {
+    transform: scale(1.1);
+    box-shadow: 0 8px 40px rgba(124, 58, 237, 0.6);
 }
 
 .player-header {
@@ -612,11 +701,12 @@ a {
 }
 
 .transcript-line {
-    padding: 10px 14px;
-    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
     opacity: 0.4;
-    transition: opacity 0.4s ease, background 0.4s ease;
-    max-width: 88%;
+    transition: opacity 0.4s ease;
+    max-width: 90%;
 }
 
 .transcript-line.active {
@@ -624,23 +714,57 @@ a {
 }
 
 .transcript-line.agent {
-    background: rgba(124, 58, 237, 0.06);
-    border: 1px solid rgba(124, 58, 237, 0.1);
     align-self: flex-start;
 }
 
-.transcript-line.agent.active {
+.transcript-line.user-line {
+    align-self: flex-end;
+}
+
+.transcript-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.agent-avatar {
+    background: rgba(124, 58, 237, 0.15);
+    border: 1px solid rgba(124, 58, 237, 0.25);
+}
+
+.user-avatar {
+    background: rgba(6, 182, 212, 0.1);
+    border: 1px solid rgba(6, 182, 212, 0.2);
+    color: var(--accent-cyan);
+}
+
+.transcript-bubble {
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    flex: 1;
+}
+
+.transcript-line.agent .transcript-bubble {
+    background: rgba(124, 58, 237, 0.06);
+    border: 1px solid rgba(124, 58, 237, 0.1);
+}
+
+.transcript-line.agent.active .transcript-bubble {
     background: rgba(124, 58, 237, 0.12);
     border-color: rgba(124, 58, 237, 0.25);
 }
 
-.transcript-line.user-line {
+.transcript-line.user-line .transcript-bubble {
     background: rgba(6, 182, 212, 0.04);
     border: 1px solid rgba(6, 182, 212, 0.08);
-    align-self: flex-end;
 }
 
-.transcript-line.user-line.active {
+.transcript-line.user-line.active .transcript-bubble {
     background: rgba(6, 182, 212, 0.1);
     border-color: rgba(6, 182, 212, 0.2);
 }

@@ -209,6 +209,10 @@ function initWaveform() {
     const volumeBtn = document.getElementById('volume-btn');
     const transcriptLines = document.querySelectorAll('.transcript-line');
 
+    const overlay = document.getElementById('waveform-overlay');
+    const waveformWrapper = document.getElementById('waveform-wrapper');
+    const playerEl = document.getElementById('demo-player');
+
     let isPlaying = false;
     let audioContext = null;
     let analyser = null;
@@ -252,7 +256,7 @@ function initWaveform() {
 
     // Play / Pause toggle
     if (playBtn && audio) {
-        playBtn.addEventListener('click', () => {
+        function startPlayback() {
             try { setupAudioContext(); } catch(e) {}
             if (audioContext && audioContext.state === 'suspended') {
                 audioContext.resume();
@@ -265,24 +269,43 @@ function initWaveform() {
                     // Audio file not found — still show animated waveform
                 });
             }
-        });
+        }
+
+        playBtn.addEventListener('click', startPlayback);
+
+        // Overlay click starts playback
+        if (overlay) {
+            overlay.addEventListener('click', startPlayback);
+        }
+        if (waveformWrapper) {
+            waveformWrapper.addEventListener('click', (e) => {
+                if (e.target === canvas || e.target.closest('.waveform-overlay')) {
+                    startPlayback();
+                }
+            });
+        }
 
         audio.addEventListener('play', () => {
             isPlaying = true;
             playIcon.style.display = 'none';
             pauseIcon.style.display = 'block';
+            if (overlay) overlay.classList.add('hidden');
+            if (playerEl) playerEl.classList.add('playing');
         });
 
         audio.addEventListener('pause', () => {
             isPlaying = false;
             playIcon.style.display = 'block';
             pauseIcon.style.display = 'none';
+            if (playerEl) playerEl.classList.remove('playing');
         });
 
         audio.addEventListener('ended', () => {
             isPlaying = false;
             playIcon.style.display = 'block';
             pauseIcon.style.display = 'none';
+            if (overlay) overlay.classList.remove('hidden');
+            if (playerEl) playerEl.classList.remove('playing');
         });
 
         // Progress bar update
