@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Edhana AI — The World's Most Advanced Voice AI Agents",
   "scripts": {
-    "start": "npx serve -s . -l tcp://0.0.0.0:${PORT:-3000}"
+    "start": "sh -c 'exec ./node_modules/.bin/serve -s . -l tcp://0.0.0.0:${PORT:-3000}'"
   },
   "dependencies": {
     "serve": "^14.2.0"
